@@ -2,6 +2,7 @@
 using Aerolt.Classes;
 using Aerolt.Overrides;
 using RoR2;
+using RoR2.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,9 @@ namespace Aerolt.Utilities
             CharacterBody.onBodyStartGlobal += H.GetCharacterData;
             SceneDirector.onPostPopulateSceneServer += H.GetESPData;
             SceneManager.sceneLoaded += H.OnSceneLoaded;
+            NetworkManagerSystem.onClientConnectGlobal += H.PlayerListUpdate;
+            NetworkManagerSystem.onClientDisconnectGlobal += H.PlayerListUpdate;
+
             T.Log("Hooks Complete");
             #endregion
         }

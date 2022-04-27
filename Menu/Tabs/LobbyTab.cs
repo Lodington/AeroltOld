@@ -12,19 +12,21 @@ namespace Aerolt.Menu.Tabs
         private static Vector2 LobbyScrollPosition;
         public static void Tab()
         {
-           
+            GUILayout.Space(0);
             GUILayout.BeginArea(new Rect(10, 35, 260, 400), style: "box", text: "Player");
             LobbyScrollPosition = GUILayout.BeginScrollView(LobbyScrollPosition);
 
             SelectedObject = GUILayout.SelectionGrid((int)SelectedObject, Main.Players.ToArray(), 1);
+
             foreach(var player in Main.Players)
             {
                 GUILayout.Button(player.text);
-                    
             }
 
             GUILayout.EndScrollView();
             GUILayout.EndArea();
+
+            GUILayout.Space(0);
 
             GUILayout.BeginArea(new Rect(280, 35, 260, 400), style: "box", text: "Options");
 
@@ -32,6 +34,7 @@ namespace Aerolt.Menu.Tabs
             {
                 NetworkUser player = LM.GetNetUserFromString(Main.Players[SelectedObject].text);
                 CharacterMaster master = player.master;
+
                 if (GUILayout.Button("Kick " + Main.Players[SelectedObject].text))
                 {
                     Chat.SendBroadcastChat(new Chat.SimpleChatMessage { baseToken = "<color=red>Kicked Player " + Main.Players[SelectedObject].text + "</color>" });

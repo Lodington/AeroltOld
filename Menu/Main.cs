@@ -2,9 +2,6 @@
 using Aerolt.Classes;
 using Aerolt.Menu.Tabs;
 using Aerolt.Menu.Windows;
-using Aerolt.Overrides;
-using On.EntityStates;
-using RoR2;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

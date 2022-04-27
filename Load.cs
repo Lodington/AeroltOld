@@ -1,5 +1,8 @@
-﻿using Aerolt.Utilities;
+﻿using Aerolt.Overrides;
+using Aerolt.Utilities;
 using BepInEx;
+using HarmonyLib;
+using RoR2.UI;
 using UnityEngine;
 
 [BepInDependency("com.bepis.r2api")]
@@ -17,6 +20,9 @@ public class Load : BaseUnityPlugin
         CO = new GameObject();
         UnityEngine.Object.DontDestroyOnLoad(CO);
         //let manager use the unity functions
+        var harm = new Harmony(Info.Metadata.GUID);
+        new PatchClassProcessor(harm, typeof(H)).Patch();
         CO.AddComponent<Manager>();
+        
     }
 }
