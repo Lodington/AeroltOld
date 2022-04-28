@@ -7,7 +7,6 @@ using RoR2.UI;
 using UnityEngine;
 using static RoR2.Console;
 
-[BepInDependency("com.bepis.r2api")]
 [BepInPlugin(GUID, NAME, VERSION)]
 public class Load : BaseUnityPlugin
 {

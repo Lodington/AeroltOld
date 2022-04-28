@@ -131,7 +131,7 @@ namespace Aerolt.Menu
                     PlayersTab.Tab();
                     break;
                 case MenuTab.Interactable:
-                    SpawnerTab.Tab();
+                    InteractableTab.Tab();
                     break;
             }
             #endregion

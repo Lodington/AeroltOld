@@ -11,7 +11,7 @@ using UnityEngine.Networking;
 
 namespace Aerolt.Menu.Tabs
 {
-    public class SpawnerTab
+    public class InteractableTab
     {
         public static string[] array = { searchField };
         public static string searchField;

@@ -46,9 +46,10 @@
     <Compile Include="Classes\LobbyManagement.cs" />
     <Compile Include="Load.cs" />
     <Compile Include="Menu\Main.cs" />
+    <Compile Include="Menu\Tabs\DevTab.cs" />
     <Compile Include="Menu\Tabs\EquipmentTab.cs" />
     <Compile Include="Menu\Tabs\EspTab.cs" />
-    <Compile Include="Menu\Tabs\SpawnerTab.cs" />
+    <Compile Include="Menu\Tabs\InteractableTab.cs" />
     <Compile Include="Menu\Tabs\TeleporterTab.cs" />
     <Compile Include="Menu\Tabs\SettingsTab.cs" />
     <Compile Include="Menu\Tabs\ItemsTab.cs" />
