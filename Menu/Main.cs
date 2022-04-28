@@ -50,10 +50,14 @@ namespace Aerolt.Menu
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 if (MenuOpen == false)
+                {
                     MenuOpen = true;
-                else
+                    G.CursorGrabber.SetActive(MenuOpen);
+                }
+                else if (MenuOpen == true)
                 {
                     MenuOpen = false;
+                    G.CursorGrabber.SetActive(MenuOpen);
                     i = -40;
                 }
             }
@@ -68,6 +72,8 @@ namespace Aerolt.Menu
                     _cursorTexture = Resources.Load("textures/miscicons/texCursor") as Texture;
 
                 GUI.depth = -1;
+
+                
 
                 GUIStyle guiStyle = new GUIStyle("label");
                 guiStyle.margin = new RectOffset(10, 10, 5, 5);

@@ -18,6 +18,8 @@ namespace Aerolt
         public static CharacterBody Localbody;
         public static CharacterMotor LocalMotor;
 
+        public static GameObject CursorGrabber;
+
         public static bool _CharacterCollected = false;
 
     }

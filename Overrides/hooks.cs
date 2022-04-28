@@ -6,16 +6,18 @@ using Aerolt.Utilities;
 using HarmonyLib;
 using RoR2;
 using RoR2.UI;
+using System;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using GC = Aerolt.Classes.GC;
 
 namespace Aerolt.Overrides
 {
+    [HarmonyPatch]
     public class H
     {
-
 
         public static void GetESPData(SceneDirector obj)
         {
@@ -39,7 +41,24 @@ namespace Aerolt.Overrides
         [HarmonyPostfix, HarmonyPatch(typeof(HUD), nameof(HUD.Awake))]
         public static void Postfix(HUD __instance)
         {
-            
+            try
+            {
+                //thanks Bubbet ♥
+                var cursorGrabber = new GameObject("CursorGrabber");
+                cursorGrabber.transform.SetParent(__instance.mainUIPanel.transform);
+                cursorGrabber.SetActive(false);
+
+                cursorGrabber.AddComponent<MPEventSystemLocator>();
+                cursorGrabber.AddComponent<CursorOpener>();
+
+                G.CursorGrabber = cursorGrabber;
+            }
+            catch(Exception ex)
+            {
+                T.Log(ex.ToString());
+            }
+           
+
         }
         public static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
