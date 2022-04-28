@@ -1,5 +1,6 @@
 ﻿using Aerolt.Options;
 using RoR2;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Aerolt
@@ -19,6 +20,8 @@ namespace Aerolt
         public static CharacterMotor LocalMotor;
 
         public static GameObject CursorGrabber;
+        public static List<GUIContent> InteractableButtons = new List<GUIContent>();
+        public static List<SpawnCard> SpawnCards = new List<SpawnCard>();
 
         public static bool _CharacterCollected = false;
 

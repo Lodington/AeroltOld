@@ -18,11 +18,6 @@ namespace Aerolt.Menu.Tabs
 
             SelectedObject = GUILayout.SelectionGrid((int)SelectedObject, Main.Players.ToArray(), 1);
 
-            foreach(var player in Main.Players)
-            {
-                GUILayout.Button(player.text);
-            }
-
             GUILayout.EndScrollView();
             GUILayout.EndArea();
 

@@ -19,13 +19,22 @@ namespace Aerolt.Overrides
     public class H
     {
 
-        public static void GetESPData(SceneDirector obj)
+        public static void GetESPData(SceneDirector director)
         {
             ESP.barrelInteractions = UnityEngine.Object.FindObjectsOfType<BarrelInteraction>().ToList();
             ESP.purchaseInteractions = UnityEngine.Object.FindObjectsOfType<PurchaseInteraction>().ToList();
             ESP.secretButtons = UnityEngine.Object.FindObjectsOfType<PressurePlateController>().ToList();
             ESP.scrappers = UnityEngine.Object.FindObjectsOfType<ScrapperController>().ToList();
-            //SpawnerTab.interactableSpawnCards = UnityEngine.Object.FindObjectsOfType<InteractableSpawnCard>().ToList();
+
+            G.SpawnCards = director.GenerateInteractableCardSelection().choices.Where(x => x.value != null).Select(x => x.value.spawnCard).ToList();
+
+            T.Log(G.SpawnCards.Count());
+            
+            foreach(var cards in G.SpawnCards)
+            {
+                G.InteractableButtons.Add(new GUIContent(cards.prefab.name.ToString()));
+                T.Log(cards.prefab.name);
+            }
         }
 
         public static void GetCharacterData(CharacterBody body)
@@ -62,10 +71,6 @@ namespace Aerolt.Overrides
         }
         public static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            ESP.barrelInteractions = UnityEngine.Object.FindObjectsOfType<BarrelInteraction>().ToList();
-            ESP.purchaseInteractions = UnityEngine.Object.FindObjectsOfType<PurchaseInteraction>().ToList();
-            ESP.secretButtons = UnityEngine.Object.FindObjectsOfType<PressurePlateController>().ToList();
-            ESP.scrappers = UnityEngine.Object.FindObjectsOfType<ScrapperController>().ToList();
             Items.getItemNames();
             Items.getEquipmentNames();
             if (scene.name.Contains("lobby") || scene.name.Contains("title"))

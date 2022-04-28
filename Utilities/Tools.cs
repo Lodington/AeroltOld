@@ -199,8 +199,8 @@ namespace Aerolt.Utilities
             }
         }
 
-        public static void Log(string s) =>
-           Load.Log.LogWarning(s);
+        public static void Log(object s) =>
+           Load.Log.LogWarning(s.ToString());
 
         public static void RemoveShaders(GameObject pgo)
         {

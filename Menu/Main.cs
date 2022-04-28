@@ -17,6 +17,7 @@ namespace Aerolt.Menu
         public static string DropdownTitle;
         public static Rect DropdownPos;
         public static Color GUIColor;
+
         private List<GUIContent> buttons = new List<GUIContent>();
         public static List<GUIContent> buttons2 = new List<GUIContent>();
         public static List<GUIContent> buttons3 = new List<GUIContent>();
@@ -24,6 +25,7 @@ namespace Aerolt.Menu
         public static List<GUIContent> buttons5 = new List<GUIContent>();
         public static List<GUIContent> ItemButtons = new List<GUIContent>();
         public static List<GUIContent> EquipmentButtons = new List<GUIContent>();
+        public static List<GUIContent> InteractableButtons = new List<GUIContent>();
         public static List<GUIContent> Players = new List<GUIContent>();
         public static Rect CursorPos = new Rect(0, 0, 20f, 20f);
 
@@ -81,10 +83,6 @@ namespace Aerolt.Menu
                 if (i < 0)
                     i++;
                 windowRect = GUILayout.Window(0, windowRect, MenuWindow, Enum.GetName(typeof(MenuTab), SelectedTab));
-                if (WhitelistWindow.WhitelistMenuOpen)
-                    itemRect = GUILayout.Window(4, itemRect, WhitelistWindow.Window, ("Pickup ") + "Whitelist");
-                if (GUIWindow.GUISkinMenuOpen)
-                    guiRect = GUILayout.Window(5, guiRect, GUIWindow.Window, "GUI Skins");
 
                 GUILayout.BeginArea(new Rect(0, i, Screen.width, 40), style: "NavBox");
                 GUILayout.BeginHorizontal();
