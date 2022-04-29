@@ -21,12 +21,8 @@ namespace Aerolt.Menu.Tabs
 
             if(GUILayout.Toggle(false,"Stop Sound"))
             {
-
+                AkSoundEngine.StopAll();
             }
-
-
-           
-
 
             GUILayout.EndScrollView();
             GUILayout.EndArea();

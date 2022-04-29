@@ -19,6 +19,8 @@ namespace Aerolt.Cheats
         public static List<BarrelInteraction> barrelInteractions = new List<BarrelInteraction>();
         public static List<PressurePlateController> secretButtons = new List<PressurePlateController>();
         public static List<ScrapperController> scrappers = new List<ScrapperController>();
+        public static List<MultiShopController> multiShops = new List<MultiShopController>();
+
         public static List<HurtBox> hurtBoxes;
 
         void OnGUI()
@@ -38,6 +40,10 @@ namespace Aerolt.Cheats
                         ESP.showPlate();
                     if (G.Settings.espoptions.showBarrels)
                         ESP.showBarrel();
+                    if (G.Settings.espoptions.showEnemies)
+                        showMobs();
+                    if (G.Settings.espoptions.showMultiShops)
+                        showMobs();
                 }
             }
             catch (NullReferenceException)
@@ -46,7 +52,36 @@ namespace Aerolt.Cheats
             }
             
         }
-
+        public static void showMobs()
+        {
+            for (int i = 0; i < hurtBoxes.Count; i++)
+            {
+                var mob = HurtBox.FindEntityObject(hurtBoxes[i]);
+                if (mob)
+                {
+                    Vector3 MobPosition = Camera.main.WorldToScreenPoint(mob.transform.position);
+                    var MobBoundingVector = new Vector3(MobPosition.x, MobPosition.y, MobPosition.z);
+                    float distanceToMob = Vector3.Distance(Camera.main.transform.position, mob.transform.position);
+                    if (MobBoundingVector.z > 0.01)
+                    {
+                        float width = 100f * (distanceToMob / 100);
+                        if (width > 125)
+                        {
+                            width = 125;
+                        }
+                        float height = 100f * (distanceToMob / 100);
+                        if (height > 125)
+                        {
+                            height = 125;
+                        }
+                        string mobName = mob.name.Replace("Body(Clone)", "");
+                        int mobDistance = (int)distanceToMob;
+                        string mobBoxText = $"{mobName}\n{mobDistance}m";
+                        T.DrawESPLabel(mob.transform.position, Color.yellow, Color.clear, mobBoxText);
+                    }
+                }
+            }
+        }
         public static void showTeleporter()
         {
             if (TeleporterInteraction.instance)
@@ -85,7 +120,6 @@ namespace Aerolt.Cheats
             {
                 if (purchaseInteraction.available)
                 {
-                    string dropName = null;
                     var chest = purchaseInteraction?.gameObject.GetComponent<ChestBehavior>();
 
                     float distanceToObject = Vector3.Distance(Camera.main.transform.position, purchaseInteraction.transform.position);
@@ -96,6 +130,22 @@ namespace Aerolt.Cheats
                     string boxText = $"{friendlyName}\n${cost}\n{distance}m";
                     T.DrawESPLabel(purchaseInteraction.transform.position, Colors.GetColor("Chest"), Color.clear, boxText);
                    
+                }
+            }
+        }
+        public static void showMultiShop()
+        {
+            foreach (MultiShopController multiShop in multiShops)
+            {
+                if (multiShop.available)
+                {
+                    float distanceToObject = Vector3.Distance(Camera.main.transform.position, multiShop.terminalPrefab.transform.position);
+
+                    int distance = (int)distanceToObject;
+                    String friendlyName = "MultiShop";
+                    int cost = multiShop.cost;
+                    string boxText = $"{friendlyName}\n${cost}\n{distance}m";
+                    T.DrawESPLabel(multiShop.transform.position, Colors.GetColor("Chest"), Color.clear, boxText);
                 }
             }
         }

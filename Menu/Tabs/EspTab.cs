@@ -20,6 +20,7 @@ namespace Aerolt.Menu.Tabs
             G.Settings.espoptions.showScrappers = GUILayout.Toggle(G.Settings.espoptions.showScrappers, "Show Scrappers");
             G.Settings.espoptions.showPressurePlates = GUILayout.Toggle(G.Settings.espoptions.showPressurePlates, "Show Pressure Plates");
             G.Settings.espoptions.showBarrels = GUILayout.Toggle(G.Settings.espoptions.showBarrels, "Show Barrels");
+            G.Settings.espoptions.showMultiShops = GUILayout.Toggle(G.Settings.espoptions.showMultiShops, "Show MultiShops");
 
             GUILayout.EndScrollView();
             GUILayout.EndArea();

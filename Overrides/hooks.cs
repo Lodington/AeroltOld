@@ -25,15 +25,12 @@ namespace Aerolt.Overrides
             ESP.purchaseInteractions = UnityEngine.Object.FindObjectsOfType<PurchaseInteraction>().ToList();
             ESP.secretButtons = UnityEngine.Object.FindObjectsOfType<PressurePlateController>().ToList();
             ESP.scrappers = UnityEngine.Object.FindObjectsOfType<ScrapperController>().ToList();
+            ESP.multiShops = UnityEngine.Object.FindObjectsOfType<MultiShopController>().ToList();
 
             G.SpawnCards = director.GenerateInteractableCardSelection().choices.Where(x => x.value != null).Select(x => x.value.spawnCard).ToList();
-
-            T.Log(G.SpawnCards.Count());
-            
-            foreach(var cards in G.SpawnCards)
+            foreach (var cards in G.SpawnCards)
             {
                 G.InteractableButtons.Add(new GUIContent(cards.prefab.name.ToString()));
-                T.Log(cards.prefab.name);
             }
         }
 
@@ -66,13 +63,12 @@ namespace Aerolt.Overrides
             {
                 T.Log(ex.ToString());
             }
-           
-
         }
         public static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             Items.getItemNames();
             Items.getEquipmentNames();
+
             if (scene.name.Contains("lobby") || scene.name.Contains("title"))
                 T.resetMenu();
         }

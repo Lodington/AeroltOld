@@ -13,6 +13,8 @@ namespace Aerolt.Options.ESP
         public bool showPressurePlates = true;
         public bool showScrappers = true;
         public bool showChest = true;
+        public bool showMultiShops = true;
+        public bool showEnemies = true;
 
         public ShaderType ChamType = ShaderType.Material;
     }
