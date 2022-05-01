@@ -17,27 +17,27 @@ namespace Aerolt.Cheats
 
         public static void getItemNames()
         {
-            if (Main.ItemButtons.ToArray().Length > 0)
-                Main.ItemButtons.Clear();
-            if (Main.ItemButtons.ToArray().Length <= 0)
+            if (G.ItemButtons.ToArray().Length > 0)
+                G.ItemButtons.Clear();
+            if (G.ItemButtons.ToArray().Length <= 0)
             {
                 foreach (var def in ContentManager._itemDefs)
                 {
                     if (def == null || def.nameToken == null || def.name == null) continue;
-                    Main.ItemButtons.Add(new GUIContent(Language.GetString(def.nameToken)));
+                    G.ItemButtons.Add(new GUIContent(Language.GetString(def.nameToken)));
                 }
             }
         }
         public static void getEquipmentNames()
         {
-            if (Main.EquipmentButtons.ToArray().Length > 0)
-                Main.EquipmentButtons.Clear();
-            if (Main.EquipmentButtons.ToArray().Length <= 0)
+            if (G.EquipmentButtons.ToArray().Length > 0)
+                G.EquipmentButtons.Clear();
+            if (G.EquipmentButtons.ToArray().Length <= 0)
             {
                 foreach (var def in ContentManager._equipmentDefs)
                 {
                     if (def == null || def.nameToken == null) continue;
-                    Main.EquipmentButtons.Add(new GUIContent(Language.GetString(def.nameToken)));
+                    G.EquipmentButtons.Add(new GUIContent(Language.GetString(def.nameToken)));
                 }
             }
         }

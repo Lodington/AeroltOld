@@ -19,7 +19,7 @@ namespace Aerolt.Menu.Tabs
 
         public static void Tab()
         {
-            var sortedList = Main.ItemButtons.OrderBy(x => x.text).ToList().ToArray();
+            var sortedList = G.ItemButtons.OrderBy(x => x.text).ToList().ToArray();
 
             GUILayout.Space(0);
             
@@ -61,7 +61,7 @@ namespace Aerolt.Menu.Tabs
 
             GUILayout.Space(10);
 
-            foreach (var player in Main.Players)
+            foreach (var player in G.Players)
             {
                 if (GUILayout.Button("Remove From " + player.text))
                 {

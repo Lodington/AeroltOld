@@ -199,8 +199,25 @@ namespace Aerolt.Utilities
             }
         }
 
-        public static void Log(object s) =>
-           Load.Log.LogWarning(s.ToString());
+        public static void Log(Enum level, object s)
+        {
+            switch (level) 
+            {
+                case LogLevel.Warning:
+                    Load.Log.LogWarning(s.ToString());
+                    break;
+                case LogLevel.Error:
+                    Load.Log.LogError(s.ToString());
+                    break;
+                case LogLevel.Information:
+                    Load.Log.LogMessage(s.ToString());
+                    break;
+                default:
+                    Load.Log.LogMessage(s.ToString());
+                    break;
+            }
+        }
+           
 
         public static void RemoveShaders(GameObject pgo)
         {

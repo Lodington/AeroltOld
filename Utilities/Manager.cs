@@ -16,22 +16,22 @@ namespace Aerolt.Utilities
 
         void Start()
         {
-            T.Log("Loading Aerolt");
+            T.Log(LogLevel.Information,"Loading Aerolt");
             AttributeUtilities.LinkAttributes();
-            T.Log("Getting Config");
+            T.Log(LogLevel.Information, "Getting Config");
             AssetUtilities.GetAssets();
-            T.Log("Getting Assets");
+            T.Log(LogLevel.Information, "Getting Assets");
             Colors.AddColors();
             #region Overrides   
-            T.Log("Starting Hooks");
-            //SceneDirector.onPostPopulateSceneServer += H.GetData;
+            T.Log(LogLevel.Information, "Starting Hooks");
+
             CharacterBody.onBodyStartGlobal += H.GetCharacterData;
-            SceneDirector.onPostPopulateSceneServer += H.GetESPData;
+            SceneDirector.onPostPopulateSceneServer += H.GetData;
             SceneManager.sceneLoaded += H.OnSceneLoaded;
             NetworkManagerSystem.onClientConnectGlobal += H.PlayerListUpdate;
             NetworkManagerSystem.onClientDisconnectGlobal += H.PlayerListUpdate;
 
-            T.Log("Hooks Complete");
+            T.Log(LogLevel.Information, "Hooks Complete");
             #endregion
         }
 

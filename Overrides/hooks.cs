@@ -19,7 +19,7 @@ namespace Aerolt.Overrides
     public class H
     {
 
-        public static void GetESPData(SceneDirector director)
+        public static void GetData(SceneDirector director)
         {
             ESP.barrelInteractions = UnityEngine.Object.FindObjectsOfType<BarrelInteraction>().ToList();
             ESP.purchaseInteractions = UnityEngine.Object.FindObjectsOfType<PurchaseInteraction>().ToList();
@@ -27,11 +27,13 @@ namespace Aerolt.Overrides
             ESP.scrappers = UnityEngine.Object.FindObjectsOfType<ScrapperController>().ToList();
             ESP.multiShops = UnityEngine.Object.FindObjectsOfType<MultiShopController>().ToList();
 
-            G.SpawnCards = director.GenerateInteractableCardSelection().choices.Where(x => x.value != null).Select(x => x.value.spawnCard).ToList();
-            foreach (var cards in G.SpawnCards)
-            {
+            foreach(var master in MasterCatalog.allAiMasters)
+                G.MonsterButtons.Add(new GUIContent(master.name));
+            
+            G.InteractablesSpawnCards = director.GenerateInteractableCardSelection().choices.Where(x => x.value != null).Select(x => x.value.spawnCard).ToList();
+            foreach (var cards in G.InteractablesSpawnCards)
                 G.InteractableButtons.Add(new GUIContent(cards.prefab.name.ToString()));
-            }
+            
         }
 
         public static void GetCharacterData(CharacterBody body)
@@ -61,7 +63,7 @@ namespace Aerolt.Overrides
             }
             catch(Exception ex)
             {
-                T.Log(ex.ToString());
+                T.Log(LogLevel.Error,ex.ToString());
             }
         }
         public static void OnSceneLoaded(Scene scene, LoadSceneMode mode)

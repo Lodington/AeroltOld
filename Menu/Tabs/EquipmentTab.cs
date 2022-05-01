@@ -14,7 +14,7 @@ namespace Aerolt.Menu.Tabs
         private static Vector2 OptionsScrollPosition;
         public static void Tab()
         {
-            var sortedList = Main.EquipmentButtons.OrderBy(x => x.text).ToList().ToArray();
+            var sortedList = G.EquipmentButtons.OrderBy(x => x.text).ToList().ToArray();
 
             GUILayout.Space(0);
 

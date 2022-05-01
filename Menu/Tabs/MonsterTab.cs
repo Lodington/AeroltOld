@@ -1,5 +1,4 @@
 ﻿using Aerolt.Cheats;
-using Aerolt.Utilities;
 using RoR2;
 using System;
 using System.Collections.Generic;
@@ -11,25 +10,22 @@ using UnityEngine.Networking;
 
 namespace Aerolt.Menu.Tabs
 {
-    public class InteractableTab
+    public class MonsterTab
     {
         public static string[] array = { searchField };
         public static string searchField;
         public static int SelectedObject = 0;
-        private static Vector2 ItemsScrollPosition;
+        private static Vector2 MonsterScrollPosition;
         private static Vector2 OptionsScrollPosition;
-
         public static void Tab()
         {
-
-            var sortedList = G.InteractableButtons.ToList().ToArray();
+            var sortedList = G.MonsterButtons.OrderBy(x => x.text).ToList().ToArray();
 
             GUILayout.Space(0);
 
-            GUILayout.BeginArea(new Rect(10, 35, 260, 400), style: "box", text: "Interactables");
-
-            ItemsScrollPosition = GUILayout.BeginScrollView(ItemsScrollPosition);
+            GUILayout.BeginArea(new Rect(10, 35, 260, 400), style: "box", text: "Monsters");
             searchField = GUILayout.TextField(searchField);
+            MonsterScrollPosition = GUILayout.BeginScrollView(MonsterScrollPosition);
 
             if (!String.IsNullOrEmpty(searchField))
             {
@@ -45,23 +41,19 @@ namespace Aerolt.Menu.Tabs
             GUILayout.BeginArea(new Rect(280, 35, 260, 400), style: "box", text: "Options");
             OptionsScrollPosition = GUILayout.BeginScrollView(OptionsScrollPosition);
 
-            if (GUILayout.Button("Spawn " + sortedList[SelectedObject].text))
-            {
-                var position = G.LocalPlayer.GetBody();
+            Vector3 location = G.Localbody.master.GetBody().transform.position;
+            var masterprefab = MasterCatalog.FindMasterPrefab(sortedList[SelectedObject].text);
+            var body = masterprefab.GetComponent<CharacterMaster>().bodyPrefab;
 
-                G.InteractablesSpawnCards[SelectedObject].DoSpawn(position.transform.position + position.inputBank.GetAimRay().direction * 1.6f, new Quaternion(), new DirectorSpawnRequest(
-                    G.InteractablesSpawnCards[SelectedObject],
-                    new DirectorPlacementRule
-                    {
-                        placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
-                        maxDistance = 100f,
-                        minDistance = 20f,
-                        position = position.transform.position + position.inputBank.GetAimRay().direction * 1.6f,
-                        preventOverhead = true
-                    },
-                    RoR2Application.rng)
-                );
+            if (GUILayout.Button("Spawn"))
+            {
+                var bodyGameObject = UnityEngine.Object.Instantiate<GameObject>(masterprefab, location, Quaternion.identity);
+                CharacterMaster master = bodyGameObject.GetComponent<CharacterMaster>();
+                NetworkServer.Spawn(bodyGameObject);
+                master.bodyPrefab = body;
+                master.SpawnBody(G.Localbody.master.GetBody().transform.position, Quaternion.identity);
             }
+               
 
             GUILayout.EndScrollView();
             GUILayout.EndArea();

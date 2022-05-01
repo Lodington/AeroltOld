@@ -37,13 +37,13 @@ namespace Aerolt.Classes
         public static void GetPlayers()
         {
 
-            Main.Players.Clear();
+            G.Players.Clear();
             NetworkUser n;
 
             for (int i = 0; i < NetworkUser.readOnlyInstancesList.Count; i++)
             {
                 n = NetworkUser.readOnlyInstancesList[i];
-                Main.Players.Add(new GUIContent(n.userName));
+                G.Players.Add(new GUIContent(n.userName));
             }
             
         }

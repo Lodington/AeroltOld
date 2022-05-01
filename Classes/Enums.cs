@@ -9,8 +9,17 @@
         Lobby,
         Teleporter,
         Interactable,
-        Settings
+        Monsters
     }
+
+    public enum LogLevel 
+    {
+        Warning,
+        Information,
+        Debug,
+        Error
+    }
+
 
     public enum SettingsOptions
     {

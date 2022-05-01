@@ -19,14 +19,7 @@ namespace Aerolt.Menu
         public static Color GUIColor;
 
         private List<GUIContent> buttons = new List<GUIContent>();
-        public static List<GUIContent> buttons2 = new List<GUIContent>();
-        public static List<GUIContent> buttons3 = new List<GUIContent>();
-        public static List<GUIContent> buttons4 = new List<GUIContent>();
-        public static List<GUIContent> buttons5 = new List<GUIContent>();
-        public static List<GUIContent> ItemButtons = new List<GUIContent>();
-        public static List<GUIContent> EquipmentButtons = new List<GUIContent>();
-        public static List<GUIContent> InteractableButtons = new List<GUIContent>();
-        public static List<GUIContent> Players = new List<GUIContent>();
+
         public static Rect CursorPos = new Rect(0, 0, 20f, 20f);
 
         private int i = -40;
@@ -43,8 +36,6 @@ namespace Aerolt.Menu
             GUIColor = GUI.color;
             foreach (MenuTab val in Enum.GetValues(typeof(MenuTab)))
                 buttons.Add(new GUIContent(Enum.GetName(typeof(MenuTab), val)));
-            foreach (SettingsOptions val in Enum.GetValues(typeof(SettingsOptions)))
-                buttons4.Add(new GUIContent(Enum.GetName(typeof(SettingsOptions), val)));
         }
 
         void Update()
@@ -74,8 +65,6 @@ namespace Aerolt.Menu
                     _cursorTexture = Resources.Load("textures/miscicons/texCursor") as Texture;
 
                 GUI.depth = -1;
-
-                
 
                 GUIStyle guiStyle = new GUIStyle("label");
                 guiStyle.margin = new RectOffset(10, 10, 5, 5);
@@ -124,14 +113,14 @@ namespace Aerolt.Menu
                 case MenuTab.Lobby:
                     LobbyTab.Tab();
                     break;
-                case MenuTab.Settings:
-                    SettingsTab.Tab();
-                    break;
                 case MenuTab.Player:
                     PlayersTab.Tab();
                     break;
                 case MenuTab.Interactable:
                     InteractableTab.Tab();
+                    break;
+                case MenuTab.Monsters:
+                    MonsterTab.Tab();
                     break;
             }
             #endregion
