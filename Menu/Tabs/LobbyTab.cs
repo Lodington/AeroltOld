@@ -48,6 +48,7 @@ namespace Aerolt.Menu.Tabs
                 }
                 if (GUILayout.Button("Resurrect " + G.Players[SelectedObject].text))
                 {
+
                     Chat.SendBroadcastChat(new Chat.SimpleChatMessage { baseToken = "<color=yellow>Resurrected " + G.Players[SelectedObject].text + "</color>" });
 
                     Transform spawnPoint = Stage.instance.GetPlayerSpawnTransform();

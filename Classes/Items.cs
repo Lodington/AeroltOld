@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Aerolt.Cheats
 {
-    class Items : MonoBehaviour
+    class Items
     {
 
         public static void getItemNames()

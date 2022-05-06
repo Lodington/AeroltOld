@@ -2,6 +2,8 @@
 using Aerolt.Classes;
 using Aerolt.Menu.Tabs;
 using Aerolt.Menu.Windows;
+using RoR2;
+using RoR2.UI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,14 +24,16 @@ namespace Aerolt.Menu
 
         public static Rect CursorPos = new Rect(0, 0, 20f, 20f);
 
+        public static Rect windowRect2 = new Rect(10, 35, 260, 400);
+
         private int i = -40;
         private Texture _cursorTexture;
-        private Rect windowRect = new Rect(80, 80, 550, 450);
+        public static Rect windowRect = new Rect(80, 80, 550, 450);
         private Rect itemRect = new Rect(400, 465, 200, 250);
-        private Rect guiRect = new Rect(100, 755, 200, 250);
-
+        private Rect guiRect = new Rect(0, Screen.height-65, 550, 700);
+        public static string command;
         readonly string Name = "Aerolt";
-        readonly string Version = "v1.2.3 Beta";
+        readonly string Version = "v1.3.0";
 
         void Start()
         {
@@ -51,6 +55,7 @@ namespace Aerolt.Menu
                 {
                     MenuOpen = false;
                     G.CursorGrabber.SetActive(MenuOpen);
+                    
                     i = -40;
                 }
             }
@@ -71,17 +76,35 @@ namespace Aerolt.Menu
                 guiStyle.fontSize = 22;
                 if (i < 0)
                     i++;
+
                 windowRect = GUILayout.Window(0, windowRect, MenuWindow, Enum.GetName(typeof(MenuTab), SelectedTab));
+                guiRect = GUILayout.Window(9, this.guiRect, GUIWindow.Window, "Console");
 
-                GUILayout.BeginArea(new Rect(0, i, Screen.width, 40), style: "NavBox");
-                GUILayout.BeginHorizontal();
-                GUI.color = new Color32(34, 177, 76, 255);
-                GUILayout.Label($"<b>{Name}</b> <size=15>{Version}</size>", guiStyle);
-                GUI.color = GUIColor;
-                SelectedTab = (MenuTab)GUILayout.Toolbar((int)SelectedTab, buttons.ToArray(), style: "TabBtn");
-                GUILayout.EndHorizontal();
-                GUILayout.EndArea();
+                using (var topbar = new GUILayout.AreaScope(new Rect(0, i, Screen.width, 40), "", "NavBox"))
+                {
+                    using (var horizontalScope = new GUILayout.HorizontalScope())
+                    {
+                        GUI.color = new Color32(34, 177, 76, 255);
+                        GUILayout.Label($"<b>{Name}</b> <size=15>{Version}</size>", guiStyle);
+                        GUI.color = GUIColor;
+                        SelectedTab = (MenuTab)GUILayout.Toolbar((int)SelectedTab, buttons.ToArray(), style: "TabBtn");
+                    }
+                }
 
+               using (var lowerbar = new GUILayout.AreaScope(new Rect(0, Screen.height - 40, Screen.width, 40), "", "NavBox"))
+               {
+                    using (var horizontalScope = new GUILayout.HorizontalScope())
+                    {
+                        GUI.color = new Color32(34, 177, 76, 255);
+                        GUI.color = GUIColor;
+                        GUILayout.Label("If you have any issues please feel free to join the discord! 1.3.0 is a huge update, so please look around for all of the options.", guiStyle);
+                        if (GUILayout.Button("Join Discord"))
+                            System.Diagnostics.Process.Start("https://discord.gg/X4GHM9fePg");
+                        if (GUILayout.Button("Buy me a coffee!"))
+                            System.Diagnostics.Process.Start("https://www.buymeacoffee.com/lodington");
+                    }   
+                }
+               
                 GUI.depth = -2;
                 CursorPos.x = Input.mousePosition.x;
                 CursorPos.y = Screen.height - Input.mousePosition.y;
@@ -92,6 +115,8 @@ namespace Aerolt.Menu
                 GUI.skin = null;
             }
         }
+
+        
 
         void MenuWindow(int windowID)
         {

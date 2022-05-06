@@ -36,5 +36,9 @@ namespace Aerolt
 
         public static bool _CharacterCollected = false;
 
+        public static string CONSOLEOUTPUT;
+
+        public static int count = 0;
+
     }
 }

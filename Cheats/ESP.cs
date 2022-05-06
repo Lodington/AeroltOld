@@ -43,7 +43,7 @@ namespace Aerolt.Cheats
                     if (G.Settings.espoptions.showEnemies)
                         showMobs();
                     if (G.Settings.espoptions.showMultiShops)
-                        showMobs();
+                        showMultiShop();
                 }
             }
             catch (NullReferenceException)
@@ -96,8 +96,6 @@ namespace Aerolt.Cheats
                     teleporterInteraction.isIdleToCharging || teleporterInteraction.isCharging ? Color.yellow :
                     teleporterInteraction.isCharged ? Color.green : Color.yellow;
 
-
-
                 string status = "" + (
                     teleporterInteraction.isIdle ? "Idle" :
                     teleporterInteraction.isCharging ? "Charging" :
@@ -113,7 +111,6 @@ namespace Aerolt.Cheats
             }
          
         }
-
         public static void showChest()
         {
             foreach (PurchaseInteraction purchaseInteraction in purchaseInteractions)
@@ -161,37 +158,6 @@ namespace Aerolt.Cheats
                     string boxText = $"{friendlyName}\n{distance}m";
                     T.DrawESPLabel(secretButton.transform.position, Colors.GetColor("Secret_Plates"), Color.clear, boxText);
                     
-                }
-            }
-        }
-        public static void Mobs()
-        {
-            for (int i = 0; i < hurtBoxes.Count; i++)
-            {
-                var mob = HurtBox.FindEntityObject(hurtBoxes[i]);
-                if (mob)
-                {
-                    Vector3 MobPosition = Camera.main.WorldToScreenPoint(mob.transform.position);
-                    var MobBoundingVector = new Vector3(MobPosition.x, MobPosition.y, MobPosition.z);
-                    float distanceToMob = Vector3.Distance(Camera.main.transform.position, mob.transform.position);
-                    if (MobBoundingVector.z > 0.01)
-                    {
-                        float width = 100f * (distanceToMob / 100);
-                        if (width > 125)
-                        {
-                            width = 125;
-                        }
-                        float height = 100f * (distanceToMob / 100);
-                        if (height > 125)
-                        {
-                            height = 125;
-                        }
-                        string mobName = mob.name.Replace("Body(Clone)", "");
-                        int mobDistance = (int)distanceToMob;
-                        string mobBoxText = $"{mobName}\n{mobDistance}m";
-                        
-                        T.DrawOutlineLabel(new Vector2(MobBoundingVector.x - width / 2, (float)Screen.height - MobBoundingVector.y - height / 2), new Color32(255, 0, 0, 255), new Color32(255, 0, 0, 255), mobName);
-                    }
                 }
             }
         }

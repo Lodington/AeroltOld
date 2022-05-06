@@ -12,7 +12,7 @@ public class Load : BaseUnityPlugin
 {
     public const string NAME = "Aerolt";
     public const string GUID = "com.Lodington." + NAME;
-    public const string VERSION = "1.2.3";
+    public const string VERSION = "1.3.0";
     public static ManualLogSource Log;
 
     public static GameObject CO;

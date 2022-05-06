@@ -1,5 +1,6 @@
 ﻿using Aerolt.Cheats;
 using Aerolt.Classes;
+using Aerolt.Menu.Windows;
 using Aerolt.Overrides;
 using RoR2;
 using RoR2.Networking;
@@ -30,6 +31,7 @@ namespace Aerolt.Utilities
             SceneManager.sceneLoaded += H.OnSceneLoaded;
             NetworkManagerSystem.onClientConnectGlobal += H.PlayerListUpdate;
             NetworkManagerSystem.onClientDisconnectGlobal += H.PlayerListUpdate;
+            Console.onLogReceived += GUIWindow.OnLogReceived;
 
             T.Log(LogLevel.Information, "Hooks Complete");
             #endregion

@@ -8,8 +8,11 @@ namespace Aerolt.Menu.Tabs
     {
 
         private static Vector2 scrollPosition1 = new Vector2(0, 0);
+        private static Vector2 CurrencyscrollPosition = new Vector2(0, 0);
+        private static Vector2 QuickscrollPosition = new Vector2(0, 0);
         public static void Tab()
         {
+            #region Toggles
             GUILayout.Space(0);
             GUILayout.BeginArea(new Rect(10, 35, 260, 400), style: "box", text: "Player Values");
             scrollPosition1 = GUILayout.BeginScrollView(scrollPosition1/*, GUILayout.Width(480)*/);
@@ -34,30 +37,18 @@ namespace Aerolt.Menu.Tabs
             GUILayout.Label("Crit Per lvl : " + G.Settings.PlayerOptions.lvlCrit);
             G.Settings.PlayerOptions.lvlCrit = (int)GUILayout.HorizontalSlider(G.Settings.PlayerOptions.lvlCrit, 1, 100);
 
-            GUILayout.Space(20);
-
-            GUILayout.Label("Items :");
-
-            GUILayout.Label("Amount per Item : " + G.Settings.PlayerOptions.amountOfItemsToGive);
-            G.Settings.PlayerOptions.amountOfItemsToGive = (int)GUILayout.HorizontalSlider(G.Settings.PlayerOptions.amountOfItemsToGive, 1, 100);
-            if (GUILayout.Button("Give all items x" + G.Settings.PlayerOptions.amountOfItemsToGive))
-                Players.GiveAllItems(G.LocalPlayerInv, G.Settings.PlayerOptions.amountOfItemsToGive);
-            if (GUILayout.Button("Give all items to everyone x" + G.Settings.PlayerOptions.amountOfItemsToGive))
-                Players.GiveAllItemsToAll(G.Settings.PlayerOptions.amountOfItemsToGive);
-            if (GUILayout.Button("Roll "+ G.Settings.PlayerOptions.amountOfItemsToGive + " items"))
-                Players.RollItems(G.Settings.PlayerOptions.amountOfItemsToGive.ToString(), G.LocalPlayerInv);
-
-            if (GUILayout.Button("Clear Inventory"))
-                Players.ClearInventory(G.LocalPlayerInv);
-
-            if (GUILayout.Button("Kill All Mobs"))
-                Players.KillAllMobs();
-
             GUILayout.EndScrollView();
             GUILayout.EndArea();
 
-            GUILayout.BeginArea(new Rect(280, 35, 260, 400), style: "box", text: "Currency");
+            #endregion
+
+            #region Currency
+
+            GUILayout.BeginArea(new Rect(280, 35, 260, 195), style: "box", text: "Currency");
+            CurrencyscrollPosition = GUILayout.BeginScrollView(CurrencyscrollPosition/*, GUILayout.Width(480)*/);
+
             GUILayout.Label("Money To Give : " + G.Settings.PlayerOptions.moneyToGive);
+
             G.Settings.PlayerOptions.moneyToGive = (uint)GUILayout.HorizontalSlider(G.Settings.PlayerOptions.moneyToGive, 1, 10000);
             if (GUILayout.Button("Give Money"))
                 Players.GiveMoney(G.Settings.PlayerOptions.moneyToGive);
@@ -79,7 +70,33 @@ namespace Aerolt.Menu.Tabs
             if (GUILayout.Button("Give Lunar To All"))
                 Players.GiveLunarCoinsToAll(G.Settings.PlayerOptions._LunarCoinsAll);
 
+            GUILayout.EndScrollView();
             GUILayout.EndArea();
+
+            #endregion
+
+            #region Quick Options
+
+            GUILayout.BeginArea(new Rect(280, 240, 260, 195), style: "box", text: "Quick Options");
+            QuickscrollPosition = GUILayout.BeginScrollView(QuickscrollPosition/*, GUILayout.Width(480)*/);
+
+            GUILayout.Label("Amount per Item : " + G.Settings.PlayerOptions.amountOfItemsToGive);
+            G.Settings.PlayerOptions.amountOfItemsToGive = (int)GUILayout.HorizontalSlider(G.Settings.PlayerOptions.amountOfItemsToGive, 1, 100);
+            if (GUILayout.Button("Give all items x" + G.Settings.PlayerOptions.amountOfItemsToGive))
+                Players.GiveAllItems(G.LocalPlayerInv, G.Settings.PlayerOptions.amountOfItemsToGive);
+            if (GUILayout.Button("Give all items to everyone x" + G.Settings.PlayerOptions.amountOfItemsToGive))
+                Players.GiveAllItemsToAll(G.Settings.PlayerOptions.amountOfItemsToGive);
+            if (GUILayout.Button("Roll " + G.Settings.PlayerOptions.amountOfItemsToGive + " items"))
+                Players.RollItems(G.Settings.PlayerOptions.amountOfItemsToGive.ToString(), G.LocalPlayerInv);
+
+            if (GUILayout.Button("Kill All Mobs"))
+                Players.KillAllMobs();
+            if (GUILayout.Button("Clear Inventory"))
+                Players.ClearInventory(G.LocalPlayerInv);
+
+            GUILayout.EndScrollView();
+            GUILayout.EndArea();
+            #endregion
         }
     }
 }

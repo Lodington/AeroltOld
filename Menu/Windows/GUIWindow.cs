@@ -1,35 +1,44 @@
 ﻿using Aerolt.Utilities;
+using RoR2;
 using UnityEngine;
 
 namespace Aerolt.Menu.Windows
 {
     public class GUIWindow
     {
-        private static Vector2 scrollPosition3 = new Vector2(0, 0);
-        public static bool GUISkinMenuOpen = false;
+        private static Vector2 scrollPosition;
+        static string command;
+        private static string Output;
+
         public static void Window(int windowID)
         {
-            scrollPosition3 = GUILayout.BeginScrollView(scrollPosition3, style: "SelectedButtonDropdown");
-            if (AssetUtilities.GetSkins().Count == 0)
-                GUILayout.Label("put gui skins in /Unturned/Unturned_Data/GUISkins/");
-            foreach (string skin in AssetUtilities.GetSkins())
-            {
-                string s = skin;
-                if (s == G.Settings.MiscOptions.UISkin)
-                    s = $"<b>{s}</b>";
-                if (GUILayout.Button(s))
-                    AssetUtilities.LoadGUISkinFromName(skin);
-            }
+            GUILayout.Space(0);
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+
+            Output = GUILayout.TextArea(Output);
+
             GUILayout.EndScrollView();
-            GUILayout.Space(2);
-            if (GUILayout.Button("Load Default GUI"))
+            GUILayout.BeginHorizontal();
+
+            command = GUILayout.TextField(command);
+            if (GUILayout.Button("Send" ,GUILayout.Width(60)))
             {
-                G.Settings.MiscOptions.UISkin = "";
-                AssetUtilities.Skin = AssetUtilities.VanillaSkin;
+                if (string.IsNullOrEmpty(command))
+                    return;
+                RoR2.Console.instance.SubmitCmd(LocalUserManager.GetFirstLocalUser(), command, true);
+                command = "";
             }
-            if (GUILayout.Button("Close Window"))
-                GUISkinMenuOpen = !GUISkinMenuOpen;
+
+            GUILayout.EndHorizontal();
+
+            
             GUI.DragWindow();
+        }
+
+        public static void OnLogReceived(RoR2.Console.Log log)
+        {
+            Output += $"\n[<color=#ffffff>{log.logType}] {log.message}</color>";
+            scrollPosition.y = Mathf.Infinity;
         }
     }
 }

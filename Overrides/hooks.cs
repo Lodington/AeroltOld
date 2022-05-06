@@ -27,14 +27,33 @@ namespace Aerolt.Overrides
             ESP.scrappers = UnityEngine.Object.FindObjectsOfType<ScrapperController>().ToList();
             ESP.multiShops = UnityEngine.Object.FindObjectsOfType<MultiShopController>().ToList();
 
-            foreach(var master in MasterCatalog.allAiMasters)
-                G.MonsterButtons.Add(new GUIContent(master.name));
-            
-            G.InteractablesSpawnCards = director.GenerateInteractableCardSelection().choices.Where(x => x.value != null).Select(x => x.value.spawnCard).ToList();
-            foreach (var cards in G.InteractablesSpawnCards)
-                G.InteractableButtons.Add(new GUIContent(cards.prefab.name.ToString()));
-            
+            Items.getItemNames();
+            Items.getEquipmentNames();
+            getInteractables();
+
+
+            void getInteractables()
+            {
+
+                foreach (var master in MasterCatalog.allAiMasters)
+                {
+                    if (G.MonsterButtons.ToArray().Length > 0)
+                        G.MonsterButtons.Clear();
+                    G.MonsterButtons.Add(new GUIContent(master.name));
+                }
+                    
+                G.InteractablesSpawnCards = director.GenerateInteractableCardSelection().choices.Where(x => x.value != null).Select(x => x.value.spawnCard).ToList();
+                foreach (var cards in G.InteractablesSpawnCards)
+                {
+                    if (G.InteractableButtons.ToArray().Length > 0)
+                        G.InteractableButtons.Clear();
+                    G.InteractableButtons.Add(new GUIContent(cards.prefab.name.ToString()));
+                }
+                    
+            }
+
         }
+
 
         public static void GetCharacterData(CharacterBody body)
         {
@@ -68,13 +87,11 @@ namespace Aerolt.Overrides
         }
         public static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Items.getItemNames();
-            Items.getEquipmentNames();
+            
 
             if (scene.name.Contains("lobby") || scene.name.Contains("title"))
                 T.resetMenu();
         }
-
 
     }
 }
